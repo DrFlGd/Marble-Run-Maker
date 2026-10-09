@@ -1,13 +1,14 @@
 'use strict';
 
-// Checks both executable targets and the bundled offline resources.
+// Verifies that both Windows packaging targets exist and contain the bundled models.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { version } = require('../package.json');
 
-const out = path.resolve(__dirname, '..', 'dist');
+const root = path.resolve(__dirname, '..');
+const out = path.join(root, 'dist');
 const releases = [
   `Marble-Run-Maker-Setup-${version}-x64.exe`,
   `Marble-Run-Maker-Portable-${version}-x64.exe`,
