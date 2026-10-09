@@ -1,4 +1,4 @@
-> **Repo status:** This GitHub repository contains the Electron scaffolding; complete website/3MF assets are not yet uploaded. Build cannot run successfully until you use the full project ZIP and Git LFS publishing script.
+> **Build prerequisite:** The full `Marbles/` website and two high-resolution 3MF files are NOT yet in GitHub. These must be uploaded with Git LFS before the GitHub Actions Windows build can succeed. Do not upload the 140 MB ZIP through GitHub’s web interface; extract it and push the project files with Git LFS.
 
 # Marble Run Maker (offline desktop)
 
