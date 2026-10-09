@@ -19,7 +19,7 @@
   "build": {
     "appId": "com.marble.runmaker",
     "productName": "Marble Run Maker",
-    "copyright": "Original site and models © their respective rights holders",
+    "copyright": "Original site and models \u00a9 their respective rights holders",
     "directories": {
       "output": "dist"
     },
