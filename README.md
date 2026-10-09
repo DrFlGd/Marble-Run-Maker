@@ -1,4 +1,4 @@
-# Marble Run Maker (offline desktop)
+> **Initial upload status:** The Electron scaffolding, tests, Windows workflow, and plan are committed. The large website assets and high-resolution 3MF binaries are **not yet in this repository**. Use the full ZIP supplied in this chat and run `scripts/publish-to-github.ps1` to upload everything via Git LFS. Builds will not pass before that upload.\n\n# Marble Run Maker (offline desktop)
 
 A **private, customized local mirror** of the 16 mm Marble Run Builder, packaged with an Electron Windows wrapper and the two user-supplied high-resolution 3MF profiles. This project is a *modified published build*, **not** the original website's source repository.
 
