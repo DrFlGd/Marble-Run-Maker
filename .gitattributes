@@ -1,3 +1,6 @@
 # Avoid storing the two 60+ MB binary 3MF files in Git history.
 # Requires Git LFS on the machine performing the initial push and on GitHub Actions.
 Marbles/assets/profiles/*.3mf filter=lfs diff=lfs merge=lfs -text
+marbles/assets/profiles/*.3mf filter=lfs diff=lfs merge=lfs -text
+marbles/Marbles/assets/profiles/*.3mf filter=lfs diff=lfs merge=lfs -text
+marbles/marbles/assets/profiles/*.3mf filter=lfs diff=lfs merge=lfs -text
