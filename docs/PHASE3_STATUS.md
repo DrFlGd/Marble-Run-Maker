@@ -1,21 +1,46 @@
 # Phase 3 — Windows build status
 
-Build targets: `Marble-Run-Maker-Setup-0.1.0-x64.exe`, `Marble-Run-Maker-Portable-0.1.0-x64.exe` and `SHA256SUMS.txt`.
+## Build targets
 
-**Current blocker:** No Windows executable has been generated or tested. The GitHub repository still lacks `Marbles/index.html`, the website assets, and both 3MF archives (`Marbles/assets/profiles/{plain,japandi}.3mf`). The GitHub app cannot directly upload the two large binaries. The complete ZIP generated in the ChatGPT conversation contains these assets.
+- **NSIS installer**: `Marble-Run-Maker-Setup-0.1.0-x64.exe`
+- **Portable executable**: `Marble-Run-Maker-Portable-0.1.0-x64.exe`
+- **Checksums**: `SHA256SUMS.txt` (SHA-256 for each executable)
 
-## Complete the build
+The Windows workflow validates each PE executable, the bundled site, and both high-resolution 3MF profiles before publishing an Actions artifact named `Marble-Run-Maker-Windows`.
 
-1. Install Git for Windows and Git LFS, then extract the complete Phase 3 ZIP.
-2. Open PowerShell in the extracted folder and run: `powershell -ExecutionPolicy Bypass -File .\scripts\publish-to-github.ps1`.
-3. The `Marbles/**` push should automatically start **GitHub → Actions → Build Windows desktop app**. Alternatively select **Run workflow**.
-4. After a successful run, download the **Marble-Run-Maker-Windows** artifact. It includes Setup and Portable EXEs and SHA-256 checksums.
-5. Test the executables on Windows 10/11 without Internet access. Confirm Plain and Japandi profiles auto-load and 3MF exports open in your slicer.
+## Blocker
 
-Alternatively, with Node.js 22+ on Windows, run **`build-windows.cmd`** directly from the full ZIP; build outputs appear under `dist/`.
+**No Windows executable has been generated or tested yet.** This repository initially contains only the Electron scaffolding. The following have not been committed:
 
-## Validation status
+- `Marbles/index.html` and accompanying site assets
+- `Marbles/assets/profiles/plain.3mf` (Git LFS)
+- `Marbles/assets/profiles/japandi.3mf` (Git LFS)
 
-- Locally verified: website assets, both full-size 3MF ZIP headers, Node HTTP-server tests, and build configuration tests.
-- Not verified: downloading Electron/npm dependencies or producing a Windows EXE (no npm/GitHub network access in this runtime), native Windows UI behavior, and actual slicer output.
-- Keep the repository private pending verification of upstream redistribution rights.
+These assets exist in the **complete project ZIP** supplied in the ChatGPT conversation. The GitHub connection cannot upload the two large binary files directly. Git LFS is required.
+
+## Unblock and start CI on Windows
+
+1. Install Git for Windows, Git LFS and Node.js 22+ (Node.js is necessary only if building locally).
+2. Extract the complete ZIP.
+3. Open PowerShell in the extracted folder; run:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\scripts\publish-to-github.ps1
+   ```
+
+4. Once the push succeeds, the `Marbles/**` change triggers **Build Windows desktop app** under **GitHub → Actions**. You can also choose **Run workflow** manually.
+5. When its steps complete successfully, download **Marble-Run-Maker-Windows** from the run's **Artifacts** section. Extract it to find the Setup and Portable executables plus the checksums.
+6. Test on Windows 10/11 offline and confirm both editions load and exported 3MF files open correctly in the slicer.
+
+### Alternative: build directly on Windows without pushing files
+
+With Node.js 22+ installed, double-click `build-windows.cmd` in the complete extracted ZIP. The executables will appear under `dist/` and **will not be uploaded automatically**.
+
+## Testing to date
+
+- Offline site/model asset integrity check: **passed locally**.
+- Node HTTP server test: **passed locally**.
+- Electron dependency installation: **not run here; this environment cannot reach npm**.
+- Windows `.exe` generation: **not run here**.
+- Real Windows UI/3MF export smoke tests: **not run here**.
+- The source application is a mirrored published build; upstream redistribution rights have not been independently verified. The GitHub repository should remain private.
