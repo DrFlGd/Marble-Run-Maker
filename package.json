@@ -1,0 +1,41 @@
+{
+  "name": "marble-run-maker",
+  "productName": "Marble Run Maker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline Marble Run Builder with bundled Plain and Japandi high-resolution 3MF profiles",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "check": "node scripts/check-assets.cjs && node --test tests/*.test.cjs",
+    "dist:win": "electron-builder --win nsis portable --x64 --publish never",
+    "dist:win:installer": "electron-builder --win nsis --x64 --publish never",
+    "dist:win:portable": "electron-builder --win portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "44.6.0",
+    "electron-builder": "26.17.0"
+  },
+  "build": {
+    "appId": "com.marble.runmaker",
+    "productName": "Marble Run Maker",
+    "copyright": "Original site and models © their respective rights holders",
+    "directories": { "output": "dist" },
+    "files": ["electron/**/*", "package.json"],
+    "extraResources": [
+      { "from": "Marbles", "to": "site/Marbles", "filter": ["**/*"] }
+    ],
+    "asar": true,
+    "win": {
+      "target": ["nsis", "portable"],
+      "artifactName": "Marble-Run-Maker-${version}-${arch}-${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
