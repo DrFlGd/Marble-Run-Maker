@@ -7,6 +7,7 @@ on:
     paths:
       - 'electron/**'
       - 'Marbles/**'
+      - 'marbles/**'
       - 'package.json'
       - 'package-lock.json'
       - 'scripts/**'
@@ -27,16 +28,12 @@ jobs:
         run: |
           git lfs pull
           if ($LASTEXITCODE -ne 0) { throw 'Git LFS pull failed. Confirm your account has sufficient LFS quota.' }
-      - name: Confirm the complete website was uploaded
-        shell: pwsh
-        run: |
-          if (-not (Test-Path 'Marbles/index.html')) {
-            throw 'Marbles/index.html is missing! Upload the website and models using scripts/publish-to-github.ps1 from the complete project ZIP before building.'
-          }
       - name: Install Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Normalize uploaded website folder (Marbles or marbles)
+        run: node scripts/prepare-site.cjs
       - name: Install dependencies
         shell: pwsh
         run: |
