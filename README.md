@@ -1,4 +1,4 @@
-> **Initial upload status:** The Electron scaffolding, tests, Windows workflow, and plan are committed. The large website assets and high-resolution 3MF binaries are **not yet in this repository**. Use the full ZIP supplied in this chat and run `scripts/publish-to-github.ps1` to upload everything via Git LFS. Builds will not pass before that upload.
+> **Repo status:** This GitHub repository contains the Electron scaffolding; complete website/3MF assets are not yet uploaded. Build cannot run successfully until you use the full project ZIP and Git LFS publishing script.
 
 # Marble Run Maker (offline desktop)
 
@@ -25,15 +25,18 @@ An Electron window should open. Allow the high-resolution profiles to load befor
 
 ## Build Windows `.exe`
 
-On a **Windows** computer (after running `npm install` at least once to generate `package-lock.json`):
+On a **Windows** computer with Node.js 22+ installed, run **`build-windows.cmd`** from the extracted complete project folder. It installs dependencies, tests the assets, builds both `.exe` files, verifies that both archives contain the offline site/models, and creates SHA-256 checksums.
+
+Alternatively:
 
 ```powershell
-npm ci
+npm install --no-audit --no-fund
 npm run check
 npm run dist:win
+node scripts/verify-windows-build.cjs
 ```
 
-Find an **unsigned NSIS installer** and **unsigned portable executable** in `dist/`. Windows SmartScreen may warn until the application is code-signed. The workflow at `.github/workflows/windows.yml` can also create these binaries from GitHub Actions; download them from **Actions → Build Windows desktop app → Artifacts**.
+Find an **unsigned NSIS installer** (`Marble-Run-Maker-Setup-*.exe`) and **unsigned portable executable** (`Marble-Run-Maker-Portable-*.exe`) in `dist/`, alongside `SHA256SUMS.txt`. Windows SmartScreen may warn until the application is code-signed. The workflow at `.github/workflows/windows.yml` can also create these binaries from GitHub Actions; download them from **Actions → Build Windows desktop app → Artifacts**.
 
 ## Repository setup and Git LFS
 
@@ -51,5 +54,7 @@ If this GitHub repository already has the initial scaffold, **clone it first and
 ## Rights and safety
 
 This repository includes a mirrored/minified application and user-supplied 3MF models. The upstream licensing / model redistribution rights have **not been independently verified**. Keep the repository private until you have confirmed you can redistribute the software and profiles. The bundled UI and exporters have not undergone full Windows interactive or slicer validation; verify any 3MF in a slicer before printing.
+
+**Build status:** The GitHub repository initially contains only the source scaffold; the `Marbles/` site files and two Git LFS archives must be uploaded before GitHub Actions can produce installers. See [`docs/PHASE3_STATUS.md`](docs/PHASE3_STATUS.md).
 
 More details: [`docs/WINDOWS_BUILD_PLAN.md`](docs/WINDOWS_BUILD_PLAN.md).

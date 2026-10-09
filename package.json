@@ -20,22 +20,39 @@
     "appId": "com.marble.runmaker",
     "productName": "Marble Run Maker",
     "copyright": "Original site and models © their respective rights holders",
-    "directories": { "output": "dist" },
-    "files": ["electron/**/*", "package.json"],
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
     "extraResources": [
-      { "from": "Marbles", "to": "site/Marbles", "filter": ["**/*"] }
+      {
+        "from": "Marbles",
+        "to": "site/Marbles",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "asar": true,
     "win": {
-      "target": ["nsis", "portable"],
-      "artifactName": "Marble-Run-Maker-${version}-${arch}-${ext}"
+      "target": [
+        "nsis",
+        "portable"
+      ]
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "perMachine": false,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "artifactName": "Marble-Run-Maker-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Marble-Run-Maker-Portable-${version}-${arch}.${ext}"
     }
   }
 }
