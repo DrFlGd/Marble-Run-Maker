@@ -23,7 +23,7 @@ An Electron window should open. Allow the high-resolution profiles to load befor
 
 ## Build Windows `.exe`
 
-On a **Windows** computer:
+On a **Windows** computer (after running `npm install` at least once to generate `package-lock.json`):
 
 ```powershell
 npm ci
@@ -35,7 +35,7 @@ Find an **unsigned NSIS installer** and **unsigned portable executable** in `dis
 
 ## Repository setup and Git LFS
 
-The Plain and Japandi 3MF archives exceed 50 MB apiece. They are intentionally tracked with **Git LFS** rather than normal Git objects. Install [Git LFS](https://git-lfs.com/) before uploading. Once the full local files have been added to your repository, do:
+The Plain and Japandi 3MF archives exceed 50 MB apiece. They are intentionally tracked with **Git LFS** rather than normal Git objects. Install [Git LFS](https://git-lfs.com/) before uploading. To publish the full ZIP contents to your GitHub repository from Windows, run `powershell -ExecutionPolicy Bypass -File .\scripts\publish-to-github.ps1` from the extracted project folder. This automatically clones the repository, copies the assets and pushes using Git LFS. Or, if you are already working inside a clone, do:
 
 ```powershell
 git lfs install
@@ -44,7 +44,7 @@ git commit -m "Add Marble Run website, models and Electron app"
 git push origin main
 ```
 
-If this GitHub repository already has the initial scaffold, **clone it first and copy the contents of this project folder into that clone** (do not copy a `.git` directory). Run `npm install` once on a network-connected machine to generate `package-lock.json`, then commit the lockfile so the automated workflow can use `npm ci`.
+If this GitHub repository already has the initial scaffold, **clone it first and copy the contents of this project folder into that clone** (do not copy a `.git` directory). Run `npm install` once on a network-connected machine to generate `package-lock.json`, then commit the lockfile to make future installs reproducible (the automated workflow currently uses `npm install` until the lockfile is committed).
 
 ## Rights and safety
 
