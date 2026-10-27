@@ -17,7 +17,7 @@ jobs:
   windows:
     runs-on: windows-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - name: Checkout full project (including Git LFS files)
         uses: actions/checkout@v4
@@ -61,3 +61,25 @@ jobs:
             dist/SHA256SUMS.txt
           if-no-files-found: error
           retention-days: 14
+      # A release, unlike an artifact, never expires and needs no login to download, so
+      # Generator Library can install and update the app from it. One release per run,
+      # tagged desktop-v<version>.<run number>.
+      - name: Read app version
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "APP_VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
+      - name: Publish Windows release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop-v${{ env.APP_VERSION }}.${{ github.run_number }}
+          name: Marble Run Maker Desktop v${{ env.APP_VERSION }} (build ${{ github.run_number }})
+          target_commitish: ${{ github.sha }}
+          files: |
+            dist/Marble-Run-Maker-Setup-*.exe
+            dist/Marble-Run-Maker-Portable-*.exe
+            dist/SHA256SUMS.txt
+          fail_on_unmatched_files: true
+          body: |
+            Unsigned Windows installer and portable executable built from ${{ github.sha }}.
+            Windows SmartScreen may warn until the application is code-signed; verify the SHA-256 checksums in SHA256SUMS.txt.
