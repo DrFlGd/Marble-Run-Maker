@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DrFlGd/Generator-Library/main/schema/generator.schema.json",
+  "id": "marble-run-maker",
+  "name": "Marble Run Maker",
+  "summary": "Offline 16 mm marble run builder with bundled Plain and Japandi high-resolution 3MF profiles.",
+  "description": "A customized local mirror of the 16 mm Marble Run Builder, packaged with an Electron Windows wrapper. Runs without an account, cloud hosting or Internet access.",
+  "tags": ["marble-run", "toys", "offline"],
+  "process": "3d-print",
+  "distributions": [
+    {
+      "kind": "bundle",
+      "label": "Install offline copy",
+      "from": { "type": "repo", "path": "Marbles" },
+      "entry": "index.html",
+      "notes": "The mirrored site as committed; the high-resolution 3MF profiles stored with Git LFS are not included."
+    },
+    {
+      "kind": "exe",
+      "platform": "windows",
+      "install": "portable",
+      "label": "Install Windows app",
+      "from": { "type": "release", "tag": "desktop-v*", "asset": "Marble-Run-Maker-Portable-*.exe" }
+    }
+  ]
+}
